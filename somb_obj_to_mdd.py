@@ -40,29 +40,29 @@ def check_v(frame_name,vp): #On vérifie que le nombre de sommets n'a pas chang�
             else:
                 if(sw == 1):
                     ex_obj_t[len(ex_obj_t)-1].append(i)
-                sw = 0 #on le met à 0 pour signifier qu'on sort d'une zone de défintion des sommet             
+                sw = 0 #on le met à 0 pour signifier qu'on sort d'une zone de défintion des sommets             
                 
     f.close()
     
-    if(vp == 0): #Si vp = 0 c'est qu'il a pas encore était défini on le défini donc
+    if(vp == 0): #Si vp = 0 c'est qu'il n'a pas encore était défini, on le défini donc
         #print(som)
         return som,ex_obj_t    
     else: #Sinon on vérifie que le nombre de sommets n'a pas changé
         if(vp != som):
-            raise Exception('Erreur, le nombre de sommets à changer')
+            raise Exception('Erreur, le nombre de sommets a changé')
     return som,ex_obj_t
 
 #def floattohex(v):
     
 #def midendian(tab):
 
-def save(addr_folder="",filepath="", frame_start=0, frame_end=300, fps=25.0):
+def save(addr_folder="",filepath="",obj_name="", frame_start=0, frame_end=300, fps=25.0):
     
-    f = open(filepath, 'wb')  #On créer le fichier en écriture au format binaire
+    f = open(filepath, 'wb')  #On crée le fichier en écriture au format binaire
     numframes = frame_end - frame_start +1 #On définit le nombre total de frame à parcourir lors de la conversion en .mdd
     
     #string contenant le nom du premier fichier à ouvrir
-    frame_name = addr_folder+"caduceus_"+str5fromint(frame_start)+".obj"       
+    frame_name = addr_folder+"\\"+obj_name+"_"+str5fromint(frame_start)+".obj"       
     
     #On définit pour la première fois le nombre de sommet de l'objet
     vp=0    
@@ -79,7 +79,7 @@ def save(addr_folder="",filepath="", frame_start=0, frame_end=300, fps=25.0):
     for frame in range(frame_start, frame_end+1):  # in order to start at desired frame
         
         #On créer le string contenant le nom des fichier à ouvrir correspondant à la frame actuel
-        frame_name = addr_folder+"caduceus_"+str5fromint(frame)+".obj"          
+        frame_name = addr_folder+"\\"+obj_name+"_"+str5fromint(frame)+".obj"          
         fobj = open(frame_name, 'r')
         print(frame_name)
         
@@ -102,4 +102,4 @@ def save(addr_folder="",filepath="", frame_start=0, frame_end=300, fps=25.0):
     f.close()#On ferme le fichier maintenant qu'il est remplie
     
     #On écrit un message permettant à l'utilisateur de savoir que le fichier a bien était exporter et où
-    print('MDD exporter: %r frames:%d\n' % (filepath, numframes)) 
+    print('MDD exporter: %r frames:%d\n' % (filepath, numframes))
